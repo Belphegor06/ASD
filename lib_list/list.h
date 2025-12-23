@@ -32,9 +32,35 @@ public:
         }
     }
 
-    bool is_empty() {
+    bool is_empty() const {
         return _head == nullptr;
     }
+
+    // Для куеуе
+    T& front() {
+        if (is_empty())
+            throw std::runtime_error("List is empty");
+        return _head->value;
+    }
+
+    T& back() {
+        if (is_empty())
+            throw std::runtime_error("List is empty");
+        return _tail->value;
+    }
+
+    const T& front() const {
+        if (is_empty())
+            throw std::runtime_error("List is empty");
+        return _head->value;
+    }
+
+    const T& back() const {
+        if (is_empty())
+            throw std::runtime_error("List is empty");
+        return _tail->value;
+    }
+    // Конец для куеуе
 
     void push_front(const T& value) {
         Node<T>* node = new Node<T>(value);
