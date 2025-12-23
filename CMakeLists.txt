@@ -27,6 +27,7 @@ add_subdirectory(lib_queue)
 
 add_subdirectory(lib_stack)
 
+add_subdirectory(lib_staples)
 
 
 

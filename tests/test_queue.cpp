@@ -46,8 +46,8 @@ TEST(TestTQueue, cyclic_behavior) {
     q.push(50);
     EXPECT_EQ(q.size(), 5);
 
-    q.pop(); // front -> 20
-    q.push(60); // wrap-around
+    q.pop(); 
+    q.push(60);
     EXPECT_EQ(q.back(), 60);
     EXPECT_EQ(q.front(), 20);
 }
@@ -84,7 +84,7 @@ TEST(TestTQueue, front_from_empty_throws) {
 }
 
 TEST(TestTQueue, large_number_of_elements) {
-    TQueue<int> q(200); // увеличенный буфер
+    TQueue<int> q(200);
     for (int i = 1; i <= 100; i++) q.push(i);
     EXPECT_EQ(q.size(), 100);
     EXPECT_EQ(q.front(), 1);

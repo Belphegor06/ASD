@@ -48,10 +48,8 @@ TEST(ListConstructor, copy_constructor) {
 
     List<int> copy(original);
 
-    // меняем оригинал
     ASSERT_NO_THROW(original.pop_front());
 
-    // копия должна остаться непустой
     EXPECT_FALSE(copy.is_empty());
 }
 
@@ -61,11 +59,11 @@ TEST(ListInsert, insert_by_position) {
     list.push_back(1);
     list.push_back(3);
 
-    ASSERT_NO_THROW(list.insert(1, 2)); // между 1 и 3
+    ASSERT_NO_THROW(list.insert(1, 2)); 
 
-    ASSERT_NO_THROW(list.pop_front()); // 1
-    ASSERT_NO_THROW(list.pop_front()); // 2
-    ASSERT_NO_THROW(list.pop_front()); // 3
+    ASSERT_NO_THROW(list.pop_front()); 
+    ASSERT_NO_THROW(list.pop_front()); 
+    ASSERT_NO_THROW(list.pop_front()); 
 
     EXPECT_TRUE(list.is_empty());
 }
@@ -100,8 +98,8 @@ TEST(ListPop, pop_back) {
 
     ASSERT_NO_THROW(list.pop_back());
 
-    ASSERT_NO_THROW(list.pop_front()); // 1
-    ASSERT_NO_THROW(list.pop_front()); // 2
+    ASSERT_NO_THROW(list.pop_front()); 
+    ASSERT_NO_THROW(list.pop_front()); 
 
     EXPECT_TRUE(list.is_empty());
 }
@@ -121,10 +119,10 @@ TEST(ListErase, erase_by_position) {
     list.push_back(2);
     list.push_back(3);
 
-    ASSERT_NO_THROW(list.erase(1)); // удаляем 2
+    ASSERT_NO_THROW(list.erase(1)); 
 
-    ASSERT_NO_THROW(list.pop_front()); // 1
-    ASSERT_NO_THROW(list.pop_front()); // 3
+    ASSERT_NO_THROW(list.pop_front()); 
+    ASSERT_NO_THROW(list.pop_front()); 
 
     EXPECT_TRUE(list.is_empty());
 }
