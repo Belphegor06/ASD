@@ -19,6 +19,9 @@ add_subdirectory(lib_point)    # подключаем дополнительны
 
 add_subdirectory(lib_tvector)
 
+add_subdirectory(lib_list)
+
+add_subdirectory(lib_wlist)
 
 
 add_subdirectory(main)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
