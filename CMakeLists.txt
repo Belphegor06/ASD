@@ -33,6 +33,8 @@ add_subdirectory(lib_queue_list)
 
 add_subdirectory(lib_stack_list)
 
+add_subdirectory(lib_table)
+
 
 
 add_subdirectory(main)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
