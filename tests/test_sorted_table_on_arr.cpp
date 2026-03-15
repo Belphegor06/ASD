@@ -1,139 +1,50 @@
+// Copyright 2024 Marina Usova
+
 #include <gtest/gtest.h>
-#include "../lib_unsorted_table_on_arr/unsorted_table_on_arr.h"
+#include "../lib_easy_example/easy_example.h"
 
-TEST(TestUnsortedTableOnArr, can_insert_element) {
-    // Arrange
-    UnsortedTableOnArr<int, int> table;
+#define EPSILON 0.000001
 
-    // Act & Assert
-    ASSERT_NO_THROW(table.insert(1, 10));
+TEST(TestEasyExampleLib, can_div) {
+  // Arrange
+  int x = 10;
+  int y = 2;
+
+  // Act & Assert
+  ASSERT_NO_THROW(division(x, y));
 }
 
-TEST(TestUnsortedTableOnArr, insert_increases_size) {
+TEST(TestEasyExampleLib, can_div_correctly) {
     // Arrange
-    UnsortedTableOnArr<int, int> table;
+    int x = 6;
+    int y = 2;
 
     // Act
-    table.insert(1, 10);
+    int actual_result = division(x, y);
 
     // Assert
-    EXPECT_EQ(1, table.size());
+    int expected_result = 3;
+    EXPECT_EQ(expected_result, actual_result);
 }
 
-TEST(TestUnsortedTableOnArr, can_find_inserted_element) {
+TEST(TestEasyExampleLib, can_div_correctly_with_remainder) {
     // Arrange
-    UnsortedTableOnArr<int, int> table;
-    table.insert(1, 10);
+    int x = 5;
+    int y = 4;
 
     // Act
-    int actual = table.find(1);
+    float actual_result = division(x, y);
 
     // Assert
-    int expected = 10;
-    EXPECT_EQ(expected, actual);
+    float expected_result = 1.25;
+    EXPECT_NEAR(expected_result, actual_result, EPSILON);
 }
 
-TEST(TestUnsortedTableOnArr, contains_returns_true_for_existing_key) {
-    // Arrange
-    UnsortedTableOnArr<int, int> table;
-    table.insert(1, 10);
+TEST(TestEasyExampleLib, throw_when_try_div_by_zero) {
+  // Arrange
+  int x = 10;
+  int y = 0;
 
-    // Act
-    bool actual = table.contains(1);
-
-    // Assert
-    EXPECT_TRUE(actual);
-}
-
-TEST(TestUnsortedTableOnArr, contains_returns_false_for_missing_key) {
-    // Arrange
-    UnsortedTableOnArr<int, int> table;
-
-    // Act
-    bool actual = table.contains(5);
-
-    // Assert
-    EXPECT_FALSE(actual);
-}
-
-TEST(TestUnsortedTableOnArr, table_is_empty_after_creation) {
-    // Arrange
-    UnsortedTableOnArr<int, int> table;
-
-    // Act
-    bool actual = table.empty();
-
-    // Assert
-    EXPECT_TRUE(actual);
-}
-
-TEST(TestUnsortedTableOnArr, table_is_not_empty_after_insert) {
-    // Arrange
-    UnsortedTableOnArr<int, int> table;
-    table.insert(1, 10);
-
-    // Act
-    bool actual = table.empty();
-
-    // Assert
-    EXPECT_FALSE(actual);
-}
-
-TEST(TestUnsortedTableOnArr, can_erase_existing_key) {
-    // Arrange
-    UnsortedTableOnArr<int, int> table;
-    table.insert(1, 10);
-
-    // Act & Assert
-    ASSERT_NO_THROW(table.erase(1));
-}
-
-TEST(TestUnsortedTableOnArr, erase_reduces_size) {
-    // Arrange
-    UnsortedTableOnArr<int, int> table;
-    table.insert(1, 10);
-
-    // Act
-    table.erase(1);
-
-    // Assert
-    EXPECT_EQ(0, table.size());
-}
-
-TEST(TestUnsortedTableOnArr, clear_makes_table_empty) {
-    // Arrange
-    UnsortedTableOnArr<int, int> table;
-    table.insert(1, 10);
-    table.insert(2, 20);
-
-    // Act
-    table.clear();
-
-    // Assert
-    EXPECT_TRUE(table.empty());
-}
-
-TEST(TestUnsortedTableOnArr, throw_when_insert_duplicate_key) {
-    // Arrange
-    UnsortedTableOnArr<int, int> table;
-    table.insert(1, 10);
-
-    // Act & Assert
-    ASSERT_THROW(table.insert(1, 20), std::logic_error);
-}
-
-TEST(TestUnsortedTableOnArr, throw_when_find_non_existing_key) {
-    // Arrange
-    UnsortedTableOnArr<int, int> table;
-
-    // Act & Assert
-    ASSERT_THROW(table.find(5), std::out_of_range);
-}
-
-TEST(TestUnsortedTableOnArr, throw_when_erase_non_existing_key) {
-    // Arrange
-    UnsortedTableOnArr<int, int> table;
-
-    // Act & Assert
-    ASSERT_THROW(table.erase(5), std::out_of_range);
+  // Act & Assert
+  ASSERT_ANY_THROW(division(x, y));
 }
