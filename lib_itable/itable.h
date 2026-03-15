@@ -1,8 +1,29 @@
-// Copyright 2024 Marina Usova
+#pragma once
 
-#ifndef LIB_EASY_EXAMPLE_EASY_EXAMPLE_H_
-#define LIB_EASY_EXAMPLE_EASY_EXAMPLE_H_
+template<class TKey, class TVal>
+class ITable
+{
+public:
 
-float division(int a, int b);
+    struct Row
+    {
+        TKey key;
+        TVal value;
+    };
 
-#endif  // LIB_EASY_EXAMPLE_EASY_EXAMPLE_H_
+    virtual void insert(const TKey& key, const TVal& value) = 0;
+
+    virtual void erase(const TKey& key) = 0;
+
+    virtual TVal& find(const TKey& key) = 0;
+
+    virtual bool contains(const TKey& key) const = 0;
+
+    virtual size_t size() const = 0;
+
+    virtual bool empty() const = 0;
+
+    virtual void clear() = 0;
+
+    virtual ~ITable() {}
+};
