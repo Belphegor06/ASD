@@ -1,7 +1,7 @@
 #pragma once
 
 template<class TKey, class TVal>
-class ITable
+class Table
 {
 public:
 
@@ -25,5 +25,7 @@ public:
 
     virtual void clear() = 0;
 
-    virtual ~ITable() {}
+    virtual void print() const = 0;
+
+    virtual ~Table() {}
 };

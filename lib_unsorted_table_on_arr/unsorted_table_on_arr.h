@@ -4,11 +4,11 @@
 #include "..\lib_tvector\tvector.h"
 
 template<class TKey, class TVal>
-class UnsortedTableOnArr : public ITable<TKey, TVal>
+class UnsortedTableOnArr : public Table<TKey, TVal>
 {
 private:
 
-    TVector<typename ITable<TKey, TVal>::Row> rows;
+    TVector<typename Table<TKey, TVal>::Row> rows;
 
 public:
 
@@ -22,7 +22,7 @@ public:
             }
         }
 
-        typename ITable<TKey, TVal>::Row r;
+        typename Table<TKey, TVal>::Row r;
         r.key = key;
         r.value = value;
 

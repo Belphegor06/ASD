@@ -27,36 +27,40 @@ public:
     }
 
     ~List() {
-        while (!is_empty()) {
+        while (!empty()) {
             pop_front();
         }
     }
 
-    bool is_empty() const {
+    bool empty() const {
         return _head == nullptr;
+    }
+
+    Node<T>* front_node() const {
+        return _head;
     }
 
     // Для куеуе
     T& front() {
-        if (is_empty())
+        if (empty())
             throw std::runtime_error("List is empty");
         return _head->value;
     }
 
     T& back() {
-        if (is_empty())
+        if (empty())
             throw std::runtime_error("List is empty");
         return _tail->value;
     }
 
     const T& front() const {
-        if (is_empty())
+        if (empty())
             throw std::runtime_error("List is empty");
         return _head->value;
     }
 
     const T& back() const {
-        if (is_empty())
+        if (empty())
             throw std::runtime_error("List is empty");
         return _tail->value;
     }
@@ -64,7 +68,7 @@ public:
 
     void push_front(const T& value) {
         Node<T>* node = new Node<T>(value);
-        if (is_empty()) {
+        if (empty()) {
             _head = node;
             _tail = node;
             return;
@@ -75,7 +79,7 @@ public:
 
     void push_back(const T& value) {
         Node<T>* node = new Node<T>(value);
-        if (is_empty()) {
+        if (empty()) {
             _head = node;
             _tail = node;
             return;
@@ -105,7 +109,7 @@ public:
     }
 
     void insert(Node<T>* node, const T& value) {
-        if (node == nullptr || is_empty()) {
+        if (node == nullptr || empty()) {
             throw std::invalid_argument("Invalid node");
         }
         Node<T>* new_node = new Node<T>(value);
@@ -117,7 +121,7 @@ public:
     }
 
     void pop_front() {
-        if (is_empty()) {
+        if (empty()) {
             throw std::runtime_error("List is empty");
         }
         Node<T>* temp = _head;
@@ -129,7 +133,7 @@ public:
     }
 
     void pop_back() {
-        if (is_empty()) {
+        if (empty()) {
             throw std::runtime_error("List is empty");
         }
         if (_head == _tail) {
@@ -175,7 +179,7 @@ public:
     }
 
     void erase(Node<T>* node) {
-        if (node == nullptr || is_empty()) {
+        if (node == nullptr || empty()) {
             throw std::invalid_argument("Invalid node");
         }
 
@@ -198,4 +202,9 @@ public:
         }
         delete node;
     }
+
+    Node<T>* front_node() {
+        return _head;
+    }
+
 };

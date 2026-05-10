@@ -4,10 +4,10 @@
 #include "..\lib_itable\itable.h"
 
 template<class TKey, class TVal>
-class SortedTableOnArr : public ITable<TKey, TVal>
+class SortedTableOnArr : public Table<TKey, TVal>
 {
 private:
-    std::vector<typename ITable<TKey, TVal>::Row> rows;
+    std::vector<typename Table<TKey, TVal>::Row> rows;
 
     int findIndex(const TKey& key) const
     {
@@ -63,7 +63,7 @@ public:
         if (pos < rows.size() && rows[pos].key == key)
             return;
 
-        typename ITable<TKey, TVal>::Row r;
+        typename Table<TKey, TVal>::Row r;
         r.key = key;
         r.value = value;
 
@@ -110,7 +110,7 @@ public:
         rows.clear();
     }
 
-    const typename ITable<TKey, TVal>::Row& getRow(size_t index) const override
+    const typename Table<TKey, TVal>::Row& getRow(size_t index) const override
     {
         if (index >= rows.size())
             throw std::out_of_range("index_out_of_range");

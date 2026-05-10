@@ -1,1 +1,1 @@
-create_project_lib(ITable)
+create_project_lib(Table)
