@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <stdexcept>
 #include <vector>
 #include "..\lib_itable\itable.h"
@@ -30,7 +30,7 @@ private:
         return -1;
     }
 
-    // позиция вставки (нельзя объединить с fI)
+    // ГЇГ®Г§ГЁГ¶ГЁГї ГўГ±ГІГ ГўГЄГЁ (Г­ГҐГ«ГјГ§Гї Г®ГЎГєГҐГ¤ГЁГ­ГЁГІГј Г± fI)
     int lowerBound(const TKey& key) const
     {
         int left = 0;
@@ -59,7 +59,7 @@ public:
     {
         int pos = lowerBound(key);
 
-        // если ключ уже есть — ничего не делаем
+        // ГҐГ±Г«ГЁ ГЄГ«ГѕГ· ГіГ¦ГҐ ГҐГ±ГІГј вЂ” Г­ГЁГ·ГҐГЈГ® Г­ГҐ Г¤ГҐГ«Г ГҐГ¬
         if (pos < rows.size() && rows[pos].key == key)
             return;
 

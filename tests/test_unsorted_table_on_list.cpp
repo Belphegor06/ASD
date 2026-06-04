@@ -1,90 +1,186 @@
 #include <gtest/gtest.h>
+
 #include "../lib_unsorted_table_on_list/unsorted_table_on_list.h"
 
-TEST(TestUnsortedTableOnList, the_exception_is_when_insert_not_a_unique_key) {
-    UnsortedTableOnList<int, std::string> t1;
 
-    t1.insert(1, "First");
-    t1.insert(2, "Second");
-    t1.insert(3, "Third");
+TEST(TestUnsortedTableOnList, can_create_table)
+{
+    UnsortedTableOnList<int, int> table;
 
-
-    ASSERT_ANY_THROW(t1.insert(3, "Third"));
+    ASSERT_EQ(0, table.size());
+    ASSERT_TRUE(table.empty());
 }
 
-TEST(TestUnsortedTableOnList, check_the_insert_after_erase) {
-    UnsortedTableOnList<int, std::string> t1;
 
-    t1.insert(1, "First");
-    t1.insert(2, "Second");
-    t1.insert(3, "Third");
-    t1.erase(2);
-    t1.insert(4, "Fourth");
+TEST(TestUnsortedTableOnList, can_insert_element)
+{
+    UnsortedTableOnList<int, int> table;
 
+    table.insert(1, 10);
 
-    EXPECT_EQ(t1.find(4), "Fourth");
+    ASSERT_EQ(1, table.size());
+    ASSERT_EQ(10, table.find(1));
 }
 
-TEST(TestUnsortedTableOnList, check_the_erase) {
-    UnsortedTableOnList<int, std::string> t1;
 
-    t1.insert(1, "First");
-    t1.insert(2, "Second");
-    t1.insert(3, "Third");
-    t1.erase(1);
+TEST(TestUnsortedTableOnList, throw_when_insert_duplicate_key)
+{
+    UnsortedTableOnList<int, int> table;
 
+    table.insert(1, 10);
 
-    ASSERT_ANY_THROW(t1.find(1));
+    ASSERT_THROW(table.insert(1, 20), std::logic_error);
 }
 
-TEST(TestUnsortedTableOnList, the_exception_is_when_deleting_by_a_key_that_does_not_exist) {
-    UnsortedTableOnList<int, std::string> t1;
 
-    t1.insert(1, "First");
-    t1.insert(2, "Second");
-    t1.insert(3, "Third");
+TEST(TestUnsortedTableOnList, can_find_element)
+{
+    UnsortedTableOnList<int, int> table;
 
+    table.insert(1, 10);
+    table.insert(2, 20);
 
-    ASSERT_ANY_THROW(t1.erase(5));
+    ASSERT_EQ(10, table.find(1));
+    ASSERT_EQ(20, table.find(2));
 }
 
-TEST(TestUnsortedTableOnList, check_the_key_find) {
-    UnsortedTableOnList<std::string, std::string> t1;
 
-    t1.insert("r123", "what");
-    t1.insert("r567", "where");
-    t1.insert("r974", "when");
+TEST(TestUnsortedTableOnList, throw_when_find_non_existing_key)
+{
+    UnsortedTableOnList<int, int> table;
 
+    table.insert(1, 10);
 
-    EXPECT_EQ(t1.find("r974"), "when");
+    ASSERT_THROW(table.find(2), std::logic_error);
 }
 
-TEST(TestUnsortedTableOnList, the_exception_is_when_the_key_is_not_found) {
-    UnsortedTableOnList<std::string, std::string> t1;
 
-    t1.insert("r123", "what");
-    t1.insert("r567", "where");
-    t1.insert("r974", "when");
+TEST(TestUnsortedTableOnList, can_erase_element)
+{
+    UnsortedTableOnList<int, int> table;
 
+    table.insert(1, 10);
+    table.insert(2, 20);
 
-    ASSERT_ANY_THROW(t1.find("r1024"));
+    table.erase(1);
+
+    ASSERT_EQ(1, table.size());
+    ASSERT_FALSE(table.contains(1));
+    ASSERT_TRUE(table.contains(2));
 }
 
-TEST(TestUnsortedTableOnList, check_an_empty_Table) {
-    UnsortedTableOnList<double, std::string> t1;
 
-    t1.insert(1.5, "it is double");
-    t1.erase(1.5);
+TEST(TestUnsortedTableOnList, throw_when_erase_non_existing_key)
+{
+    UnsortedTableOnList<int, int> table;
 
+    table.insert(1, 10);
 
-    EXPECT_TRUE(t1.empty());
+    ASSERT_THROW(table.erase(2), std::logic_error);
 }
 
-TEST(TestUnsortedTableOnList, check_a_non_empty_itable) {
-    UnsortedTableOnList<double, std::string> t1;
 
-    t1.insert(1.5, "it is double");
+TEST(TestUnsortedTableOnList, contains_returns_true)
+{
+    UnsortedTableOnList<int, int> table;
+
+    table.insert(1, 10);
+
+    ASSERT_TRUE(table.contains(1));
+}
 
 
-    EXPECT_FALSE(t1.empty());
+TEST(TestUnsortedTableOnList, contains_returns_false)
+{
+    UnsortedTableOnList<int, int> table;
+
+    table.insert(1, 10);
+
+    ASSERT_FALSE(table.contains(2));
+}
+
+
+TEST(TestUnsortedTableOnList, can_clear_table)
+{
+    UnsortedTableOnList<int, int> table;
+
+    table.insert(1, 10);
+    table.insert(2, 20);
+
+    table.clear();
+
+    ASSERT_TRUE(table.empty());
+    ASSERT_EQ(0, table.size());
+}
+
+
+TEST(TestUnsortedTableOnList, can_insert_after_clear)
+{
+    UnsortedTableOnList<int, int> table;
+
+    table.insert(1, 10);
+
+    table.clear();
+
+    table.insert(2, 20);
+
+    ASSERT_EQ(1, table.size());
+    ASSERT_EQ(20, table.find(2));
+}
+
+
+TEST(TestUnsortedTableOnList, size_changes_correctly)
+{
+    UnsortedTableOnList<int, int> table;
+
+    ASSERT_EQ(0, table.size());
+
+    table.insert(1, 10);
+    ASSERT_EQ(1, table.size());
+
+    table.insert(2, 20);
+    ASSERT_EQ(2, table.size());
+
+    table.erase(1);
+    ASSERT_EQ(1, table.size());
+}
+
+
+TEST(TestUnsortedTableOnList, table_is_not_empty_after_insert)
+{
+    UnsortedTableOnList<int, int> table;
+
+    table.insert(1, 10);
+
+    ASSERT_FALSE(table.empty());
+}
+
+
+TEST(TestUnsortedTableOnList, can_change_value_through_find)
+{
+    UnsortedTableOnList<int, int> table;
+
+    table.insert(1, 10);
+
+    table.find(1) = 100;
+
+    ASSERT_EQ(100, table.find(1));
+}
+
+
+TEST(TestUnsortedTableOnList, can_work_with_many_elements)
+{
+    UnsortedTableOnList<int, int> table;
+
+    for (int i = 0; i < 100; i++)
+    {
+        table.insert(i, i * 10);
+    }
+
+    ASSERT_EQ(100, table.size());
+
+    for (int i = 0; i < 100; i++)
+    {
+        ASSERT_EQ(i * 10, table.find(i));
+    }
 }

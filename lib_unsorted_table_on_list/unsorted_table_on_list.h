@@ -2,12 +2,15 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <utility>
 
 #include "../lib_itable/itable.h"
 #include "../lib_list/list.h"
 
 template <class TKey, class TValue>
-class UnsortedTableOnList : public Table<TKey, TValue> {
+class UnsortedTableOnList : public Table<TKey, TValue>
+{
+private:
     List<std::pair<TKey, TValue>> _rows;
 
 public:
@@ -29,40 +32,44 @@ public:
 private:
     Node<std::pair<TKey, TValue>>* find_position(const TKey& key);
     const Node<std::pair<TKey, TValue>>* find_position(const TKey& key) const;
-
-    size_t _size = 0;
 };
 
 
 template <class TKey, class TValue>
-void UnsortedTableOnList<TKey, TValue>::insert(const TKey& key, const TValue& value) {
-    if (find_position(key) != nullptr) {
+void UnsortedTableOnList<TKey, TValue>::insert(
+    const TKey& key,
+    const TValue& value)
+{
+    if (find_position(key) != nullptr)
+    {
         throw std::logic_error("The key is not unique!");
     }
 
     _rows.push_back(std::make_pair(key, value));
-    ++_size;
 }
 
 
 template <class TKey, class TValue>
-void UnsortedTableOnList<TKey, TValue>::erase(const TKey& key) {
+void UnsortedTableOnList<TKey, TValue>::erase(const TKey& key)
+{
     Node<std::pair<TKey, TValue>>* node = find_position(key);
 
-    if (node == nullptr) {
+    if (node == nullptr)
+    {
         throw std::logic_error("Key not found for erase!");
     }
 
     _rows.erase(node);
-    --_size;
 }
 
 
 template <class TKey, class TValue>
-TValue& UnsortedTableOnList<TKey, TValue>::find(const TKey& key) {
+TValue& UnsortedTableOnList<TKey, TValue>::find(const TKey& key)
+{
     Node<std::pair<TKey, TValue>>* node = find_position(key);
 
-    if (node == nullptr) {
+    if (node == nullptr)
+    {
         throw std::logic_error("Key not found!");
     }
 
@@ -71,41 +78,46 @@ TValue& UnsortedTableOnList<TKey, TValue>::find(const TKey& key) {
 
 
 template <class TKey, class TValue>
-bool UnsortedTableOnList<TKey, TValue>::contains(const TKey& key) const {
+bool UnsortedTableOnList<TKey, TValue>::contains(
+    const TKey& key) const
+{
     return find_position(key) != nullptr;
 }
 
 
 template <class TKey, class TValue>
-size_t UnsortedTableOnList<TKey, TValue>::size() const {
-    return _size;
+size_t UnsortedTableOnList<TKey, TValue>::size() const
+{
+    return _rows.size();
 }
 
 
 template <class TKey, class TValue>
-bool UnsortedTableOnList<TKey, TValue>::empty() const {
-    return _size == 0;
+bool UnsortedTableOnList<TKey, TValue>::empty() const
+{
+    return _rows.empty();
 }
 
 
 template <class TKey, class TValue>
-void UnsortedTableOnList<TKey, TValue>::clear() {
-    while (!_rows.empty()) {
-        _rows.pop_front();
-    }
-
-    _size = 0;
+void UnsortedTableOnList<TKey, TValue>::clear()
+{
+    _rows.clear();
 }
 
 
 template <class TKey, class TValue>
-void UnsortedTableOnList<TKey, TValue>::print() const {
+void UnsortedTableOnList<TKey, TValue>::print() const
+{
     std::cout << "UnsortedTableOnList:\n";
 
-    const Node<std::pair<TKey, TValue>>* cur = _rows.front_node();
+    const Node<std::pair<TKey, TValue>>* cur =
+        _rows.front_node();
 
-    while (cur != nullptr) {
-        std::cout << "| "
+    while (cur != nullptr)
+    {
+        std::cout
+            << "| "
             << cur->value.first
             << " | "
             << cur->value.second
@@ -118,11 +130,16 @@ void UnsortedTableOnList<TKey, TValue>::print() const {
 
 template <class TKey, class TValue>
 Node<std::pair<TKey, TValue>>*
-UnsortedTableOnList<TKey, TValue>::find_position(const TKey& key) {
-    Node<std::pair<TKey, TValue>>* cur = _rows.front_node();
+UnsortedTableOnList<TKey, TValue>::find_position(
+    const TKey& key)
+{
+    Node<std::pair<TKey, TValue>>* cur =
+        _rows.front_node();
 
-    while (cur != nullptr) {
-        if (cur->value.first == key) {
+    while (cur != nullptr)
+    {
+        if (cur->value.first == key)
+        {
             return cur;
         }
 
@@ -131,14 +148,20 @@ UnsortedTableOnList<TKey, TValue>::find_position(const TKey& key) {
 
     return nullptr;
 }
+
 
 template <class TKey, class TValue>
 const Node<std::pair<TKey, TValue>>*
-UnsortedTableOnList<TKey, TValue>::find_position(const TKey& key) const {
-    const Node<std::pair<TKey, TValue>>* cur = _rows.front_node();
+UnsortedTableOnList<TKey, TValue>::find_position(
+    const TKey& key) const
+{
+    const Node<std::pair<TKey, TValue>>* cur =
+        _rows.front_node();
 
-    while (cur != nullptr) {
-        if (cur->value.first == key) {
+    while (cur != nullptr)
+    {
+        if (cur->value.first == key)
+        {
             return cur;
         }
 
@@ -150,8 +173,10 @@ UnsortedTableOnList<TKey, TValue>::find_position(const TKey& key) const {
 
 
 template <class TKey, class TValue>
-std::ostream& operator<<(std::ostream& out,
-    const Table<TKey, TValue>& table) {
+inline std::ostream& operator<<(
+    std::ostream& out,
+    const Table<TKey, TValue>& table)
+{
     table.print();
     return out;
 }
